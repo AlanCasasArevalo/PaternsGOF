@@ -1,3 +1,3 @@
 protocol Device {
-    func sensorChanged()
+    func sensorsChanged()
 }

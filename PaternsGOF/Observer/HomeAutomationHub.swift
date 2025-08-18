@@ -20,8 +20,14 @@ extension HomeAutomationHub {
 
     func notifyDevices() {
         devices?.forEach {
-            $0.sensorChanged()
+            $0.sensorsChanged()
         }
+    }
+}
+
+extension HomeAutomationHub: DoorStateRetriever {
+    func getFrontDoorOpen() -> Bool {
+        frontDoorOpen
     }
 }
 
@@ -40,7 +46,9 @@ extension HomeAutomationHub {
         roomTemperature = temperature
         notifyDevices()
     }
-    
+}
+
+extension HomeAutomationHub: RoomTemperatureRetriever {
     func getRoomTemperature() -> Int {
         roomTemperature
     }
