@@ -19,7 +19,7 @@ struct TextProcessorTests {
     }
 
     @Test
-    func appendItemsGetRightResult() async throws {
+    func appendMarkdownItemsGetRightResult() async throws {
         // Given
         let sut = makeSUT()
         let item1 = "one"
@@ -39,7 +39,7 @@ struct TextProcessorTests {
     }
 
     @Test
-    func appendItemsGetRightResultAndWhenWeClearThenGetEmptyResult () async throws {
+    func appendMarkdownItemsGetRightResultAndWhenWeClearThenGetEmptyResult () async throws {
         // Given
         let sut = makeSUT()
         let item1 = "one"
@@ -61,10 +61,60 @@ struct TextProcessorTests {
         let resultTextAfterClear = sut.print()
         #expect(expectedTextAfterClear == resultTextAfterClear)
     }
+    
+    @Test
+    func appendHTMLItemsGetRightResult() async throws {
+        // Given
+        let sut = makeSUT(outputFormat: .html)
+        let item1 = "one"
+        let item2 = "two"
+        
+        // When
+        sut.append(items: [item1, item2])
+        
+        let expectedText = """
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+
+"""
+        let resultText = sut.print()
+                        
+        // Then
+        #expect(expectedText == resultText)
+    }
+
+    @Test
+    func appendHTMLItemsGetRightResultAndWhenWeClearThenGetEmptyResult () async throws {
+        // Given
+        let sut = makeSUT(outputFormat: .html)
+        let item1 = "one"
+        let item2 = "two"
+        
+        // When
+        sut.append(items: [item1, item2])
+        
+        let expectedText = """
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+
+"""
+        let resultText = sut.print()
+        #expect(expectedText == resultText)
+        
+        // Then
+        sut.clear()
+        let expectedTextAfterClear = ""
+        let resultTextAfterClear = sut.print()
+        #expect(expectedTextAfterClear == resultTextAfterClear)
+    }
 }
 
 extension TextProcessorTests {
-    func makeSUT() -> TextProcessor {
-        TextProcessor()
+    func makeSUT(outputFormat: OutputFormat = .markdown) -> TextProcessor {
+        TextProcessor(outputFormat: outputFormat)
     }
 }
