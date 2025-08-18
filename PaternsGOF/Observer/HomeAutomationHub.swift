@@ -1,25 +1,27 @@
 final class HomeAutomationHub {
     internal var frontDoorOpen: Bool
     private var roomTemperature: Int
-    private var devices: [Device]?
+    private var devices: [Device]
     
     init() {
         self.frontDoorOpen = false
         self.roomTemperature = 0
+        devices = []
     }
 }
 
 extension HomeAutomationHub {
     func add(_ device: Device) {
-        devices?.append(device)
+        devices.append(device)
     }
     
-//    func remove(_ device: Device) {
-//        devices.removeAll { $0 === device }
-//    }
+    func remove(device: Device) {
+        devices.removeAll(
+            where: { $0 === device })
+    }
 
     func notifyDevices() {
-        devices?.forEach {
+        devices.forEach {
             $0.sensorsChanged()
         }
     }
