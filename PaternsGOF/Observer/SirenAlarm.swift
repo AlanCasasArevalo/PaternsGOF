@@ -2,7 +2,7 @@ final class SirenAlarm {
 }
 
 extension SirenAlarm: Device {
-    func sensorChanged() {
+    func sensorsChanged() {
         print("SirenAlarm is activated")
     }
 }

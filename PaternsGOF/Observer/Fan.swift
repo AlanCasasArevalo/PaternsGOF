@@ -2,7 +2,7 @@ final class Fan {
 }
 
 extension Fan: Device {
-    func sensorChanged() {
+    func sensorsChanged() {
         print("Fan is activated")
     }
 }
