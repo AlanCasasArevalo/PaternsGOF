@@ -1,8 +1,21 @@
-final class SirenAlarm {
+class SirenAlarm {
+    private let dataSource: DoorStateRetriever
+    private let previousFrontDoorOpen = false
+
+    init(dataSource: DoorStateRetriever) {
+        self.dataSource = dataSource
+    }
+    
+    func activate() {
+        print("SirenAlarm is activated")
+    }
 }
 
 extension SirenAlarm: Device {
     func sensorsChanged() {
-        print("SirenAlarm is activated")
+        let frontDoorOpen = dataSource.getFrontDoorOpen()
+        if previousFrontDoorOpen != frontDoorOpen && frontDoorOpen {
+            activate()
+        }
     }
 }
