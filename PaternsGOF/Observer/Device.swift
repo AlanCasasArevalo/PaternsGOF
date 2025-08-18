@@ -1,3 +1,3 @@
-protocol Device {
+protocol Device: AnyObject {
     func sensorsChanged()
 }
