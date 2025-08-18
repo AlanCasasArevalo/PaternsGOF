@@ -1,8 +1,8 @@
 final class Fan {
 }
 
-extension Fan {
-    func activate() {
+extension Fan: Device {
+    func sensorChanged() {
         print("Fan is activated")
     }
 }

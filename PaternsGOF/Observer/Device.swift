@@ -1,0 +1,3 @@
+protocol Device {
+    func sensorChanged()
+}

@@ -1,8 +1,8 @@
 final class SirenAlarm {
 }
 
-extension SirenAlarm {
-    func activate() {
+extension SirenAlarm: Device {
+    func sensorChanged() {
         print("SirenAlarm is activated")
     }
 }

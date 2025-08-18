@@ -1,8 +1,7 @@
 final class HomeAutomationHub {
     internal var frontDoorOpen: Bool
     private var roomTemperature: Int
-    private var fan: Fan?
-    private var sirenAlarm: SirenAlarm?
+    private var devices: [Device]?
     
     init() {
         self.frontDoorOpen = false
@@ -11,34 +10,35 @@ final class HomeAutomationHub {
 }
 
 extension HomeAutomationHub {
-    func set(fan: Fan) {
-        self.fan = fan
+    func add(_ device: Device) {
+        devices?.append(device)
     }
+    
+//    func remove(_ device: Device) {
+//        devices.removeAll { $0 === device }
+//    }
 
-    func set(sirenAlarm: SirenAlarm) {
-        self.sirenAlarm = sirenAlarm
+    func notifyDevices() {
+        devices?.forEach {
+            $0.sensorChanged()
+        }
     }
 }
 
 extension HomeAutomationHub {
     func openFrontDoor() {
         frontDoorOpen = true
-        if let sirenAlarm = sirenAlarm {
-            sirenAlarm.activate()
-        }
+        notifyDevices()
     }
     
     func closeFrontDoor() {
         frontDoorOpen = false
+        notifyDevices()
     }
     
     func setRoomTemperature(_ temperature: Int) {
         roomTemperature = temperature
-        if temperature > 25 {
-            if let fan = fan {
-                fan.activate()
-            }
-        }
+        notifyDevices()
     }
     
     func getRoomTemperature() -> Int {
