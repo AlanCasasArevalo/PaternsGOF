@@ -1,32 +1,27 @@
 final class TextProcessor {
     private var buffer = ""
-    private let outputFormat: OutputFormat
+    private let formatStrategy: FormatStrategy
     
     init(outputFormat: OutputFormat) {
-        self.outputFormat = outputFormat
+        switch outputFormat {
+        case .markdown:
+            formatStrategy = MarkdownFormatStrategy()
+        case .html:
+            formatStrategy = HtmlFormatStrategy()
+        }
     }
     
     func append (items: [String]) {
         // Start
-        if outputFormat == .html {
-            buffer.append("<ul>\n")
-        }
+        formatStrategy.start(&buffer)
         
         // Middle
-        if outputFormat == .markdown {
-            items.forEach { item in
-                buffer.append(" * \(item)\n")
-            }
-        } else {
-            items.forEach { item in
-                buffer.append("<li>\(item)</li>\n")
-            }
+        items.forEach {
+            formatStrategy.add(item: $0, to: &buffer)
         }
         
         // End
-        if outputFormat == .html {
-            buffer.append("</ul>\n")
-        }
+        formatStrategy.end(&buffer)
     }
     
     func clear () {
