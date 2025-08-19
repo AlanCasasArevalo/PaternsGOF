@@ -10,28 +10,28 @@ class MagicView: View {
     }
     
     override func load() {
-        let view: View?
-        
-        if type == "dialog" {
-            let dialog = Dialog()
-            dialog.set(title: text)
-            view = dialog
-        } else if type == "label" {
-            let label = Label()
-            label.set(text: text)
-            view = label
-        } else if type == "textfield" {
-            let textField = TextField()
-            textField.set(placeholder: text)
-            view = textField
-        } else {
-            view = nil
-        }
-        
-        if let view {
+        if let view = createView() {
             add(subView: view)
             view.set(color: color)
             view.load()
+        }
+    }
+    
+    func createView() -> View? {
+        if type == "dialog" {
+            let dialog = Dialog()
+            dialog.set(title: text)
+            return dialog
+        } else if type == "label" {
+            let label = Label()
+            label.set(text: text)
+            return label
+        } else if type == "textfield" {
+            let textField = TextField()
+            textField.set(placeholder: text)
+            return textField
+        } else {
+            return nil
         }
     }
 }
