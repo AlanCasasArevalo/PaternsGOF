@@ -43,6 +43,34 @@ struct MotorcycleTests {
         // Then
         #expect(receivedValue == expectedValue)
     }
+
+    @Test
+    func moveTimeMeasure() async throws {
+        // Given
+        let sut = makeSUT()
+        let sutTimeMeasureDecorator = TimeMeasureDecorator(wrapper: sut)
+        let expectedValue = "Yamaha SZR150 moving"
+
+        // When
+        let receivedValue = sutTimeMeasureDecorator.move()
+        
+        // Then
+        #expect(receivedValue == expectedValue)
+    }
+
+    @Test
+    func moveLoggerDecorator() async throws {
+        // Given
+        let sut = makeSUT()
+        let sutLoggerDecorator = LoggerDecorator(wrapper: sut)
+        let expectedValue = "Yamaha SZR150 moving"
+
+        // When
+        let receivedValue = sutLoggerDecorator.move()
+        
+        // Then
+        #expect(receivedValue == expectedValue)
+    }
 }
 
 extension MotorcycleTests {
