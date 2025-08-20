@@ -1,11 +1,12 @@
 class SendEmailToEmployeesUseCase {
-    let ceo: CEOProtocol
+    let singletonProvidable: SingletonProvidable
     
-    init(ceo: CEOProtocol) {
-        self.ceo = ceo
+    init(singletonProvidable: SingletonProvidable) {
+        self.singletonProvidable = singletonProvidable
     }
     
     func execute() {
+        let ceo = singletonProvidable.provideCEO()
         let message = ceo.greet()
         print(message)
     }
