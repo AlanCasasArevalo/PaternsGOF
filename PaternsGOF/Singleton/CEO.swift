@@ -1,3 +1,7 @@
+protocol CEOProtocol {
+    func greet() -> String
+}
+
 class CEO {
     let name: String
     let company: String
@@ -7,10 +11,12 @@ class CEO {
         self.company = company
     }
     
-    private static var instance: CEO = CEO(name: "John", company: "Apple")
+    private static var instance: CEOProtocol = CEO(name: "John", company: "Apple")
     
-    static func getInstance() -> CEO { instance }
-    
+    static func getInstance() -> CEOProtocol { instance }
+}
+
+extension CEO: CEOProtocol {
     func greet() -> String {
         "Hello, my name is \(name), I'm the Chief Executive Officer of \(company)!"
     }
