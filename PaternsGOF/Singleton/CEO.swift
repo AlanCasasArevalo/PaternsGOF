@@ -11,9 +11,14 @@ class CEO {
         self.company = company
     }
     
-    private static var instance: CEOProtocol = CEO(name: "John", company: "Apple")
+    private static var instance: CEOProtocol!
     
-    static func getInstance() -> CEOProtocol { instance }
+    static func getInstance() -> CEOProtocol {
+        if instance == nil {
+            instance = CEO(name: "John", company: "Apple")
+        }
+        return instance
+    }
 }
 
 extension CEO: CEOProtocol {

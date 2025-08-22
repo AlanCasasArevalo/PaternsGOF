@@ -1,6 +1,12 @@
 class SendEmailToEmployeesFactory {
+    
+    private let singletonProvidable: SingletonProvidable
+
+    init(singletonProvidable: SingletonProvidable) {
+        self.singletonProvidable = singletonProvidable
+    }
+    
     func create() -> SendEmailToEmployeesUseCase {
-        let ceo = CEO.getInstance()
-        return SendEmailToEmployeesUseCase(ceo: ceo)
+        return SendEmailToEmployeesUseCase(singletonProvidable: singletonProvidable)
     }
 }
