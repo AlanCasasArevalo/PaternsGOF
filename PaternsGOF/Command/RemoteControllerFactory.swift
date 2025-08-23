@@ -11,9 +11,12 @@ class RemoteControllerFactory {
         
         // Cleaner
         let cleaner = XiaomiS20CleanerDriver()
-        result.setCommand(VacuumHomeCommand(cleaner: cleaner), at: 4)
-        result.setCommand(MopFloorHomeCommand(cleaner: cleaner), at: 5)
-        result.setCommand(TurnCleanerOffCommand(cleaner: cleaner), at: 6)
+        let cleanerModeMapper = XiaomiS20CleanerDriverModeMapper()
+        let cleanerStateMapper = XiaomiS20CleanerDriverStateMapper()
+        let cleanerAdapter = XiaomiS20CleanerDriverAdapter(adaptee: cleaner, modeMapper: cleanerModeMapper, stateMapper: cleanerStateMapper)
+        result.setCommand(VacuumHomeCommand(cleaner: cleanerAdapter), at: 4)
+        result.setCommand(MopFloorHomeCommand(cleaner: cleanerAdapter), at: 5)
+        result.setCommand(TurnCleanerOffCommand(cleaner: cleanerAdapter), at: 6)
         
         // Blind
         let blind = BlindDriver()
@@ -28,7 +31,7 @@ class RemoteControllerFactory {
         // Macro command
         let wakeUpMacroCommand = MacroCommand(
             commands: [
-                VacuumHomeCommand(cleaner: cleaner),
+                VacuumHomeCommand(cleaner: cleanerAdapter),
                 OpenBlindCommand(blind: blind),
                 SetFanSpeedToHighCommand(fan: fan)
             ]

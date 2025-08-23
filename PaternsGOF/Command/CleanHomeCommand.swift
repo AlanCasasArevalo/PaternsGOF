@@ -1,9 +1,9 @@
 class CleanHomeCommand: Command {
-    let cleaner: XiaomiS20CleanerDriver
-    private var previousMode: XiaomiS20CleanerDriver.Mode = .all
-    private var previousState: XiaomiS20CleanerDriver.State = .off
+    let cleaner: CleanerDriverAdapter
+    private var previousMode: Cleaner.Mode = .all
+    private var previousState: Cleaner.State = .off
     
-    init(cleaner: XiaomiS20CleanerDriver) {
+    init(cleaner: CleanerDriverAdapter) {
         self.cleaner = cleaner
     }
     
