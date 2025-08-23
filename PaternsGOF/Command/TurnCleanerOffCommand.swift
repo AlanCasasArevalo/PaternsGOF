@@ -1,11 +1,6 @@
-class TurnCleanerOffCommand: Command {
-    private let cleaner: XiaomiS20CleanerDriver
-    
-    init(cleaner: XiaomiS20CleanerDriver) {
-        self.cleaner = cleaner
-    }
-    
-    func execute() {
+class TurnCleanerOffCommand: CleanHomeCommand {
+    override func execute() {
+        super.execute()
         self.cleaner.set(state: .off)
     }
 }
