@@ -8,4 +8,8 @@ class TurnFanOffCommand: Command {
     func execute() {
         fan.turnOff()
     }
+    
+    func undo() {
+        fan.turnOn()
+    }
 }

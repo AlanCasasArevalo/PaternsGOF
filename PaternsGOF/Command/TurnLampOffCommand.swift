@@ -8,4 +8,8 @@ class TurnLampOffCommand: Command {
     func execute() {
         lamp.turnOff()
     }
+    
+    func undo() {
+        lamp.turnOn()
+    }
 }
