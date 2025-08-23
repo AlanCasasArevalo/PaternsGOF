@@ -1,11 +1,6 @@
-class CloseBlindCommand: Command {
-    private let blind: BlindDriver
-    
-    init(blind: BlindDriver) {
-        self.blind = blind
-    }
-    
-    func execute() {
+class CloseBlindCommand: BlindCommand {
+    override func execute() {
+        super.execute()
         blind.set(height: 0)
     }
 }
