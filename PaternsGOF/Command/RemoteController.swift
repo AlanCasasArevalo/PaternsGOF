@@ -1,62 +1,87 @@
 class RemoteController {
-    private let fan: FanDriver
-    private let cleaner: XiaomiS20CleanerDriver
-    private let blind: BlindDriver
-    private let lamp: LampDriver
-    init(fan: FanDriver, cleaner: XiaomiS20CleanerDriver, blind: BlindDriver, lamp: LampDriver) {
-        self.fan = fan
-        self.cleaner = cleaner
-        self.blind = blind
-        self.lamp = lamp
+    private let setFanSpeedToLowCommand: Command
+    private let setFanSpeedToMediumCommand: Command
+    private let setFanSpeedToHighCommand: Command
+    private let turnFanOffCommand: Command
+    private let vacuumHomeCommand: Command
+    private let mopHomeCommand: Command
+    private let turnCleanerOffCommand: Command
+    private let openBlindCommand: Command
+    private let closeBlindCommand: Command
+    private let turnLampOnCommand: Command
+    private let turnLampOffCommand: Command
+    
+    init(
+        setFanSpeedToLowCommand: Command,
+        setFanSpeedToMediumCommand: Command,
+        setFanSpeedToHighCommand: Command,
+        turnFanOffCommand: Command,
+        vacuumHomeCommand: Command,
+        mopHomeCommand: Command,
+        turnCleanerOffCommand: Command,
+        openBlindCommand: Command,
+        closeBlindCommand: Command,
+        turnLampOnCommand: Command,
+        turnLampOffCommand: Command
+    ) {
+        self.setFanSpeedToLowCommand = setFanSpeedToLowCommand
+        self.setFanSpeedToMediumCommand = setFanSpeedToMediumCommand
+        self.setFanSpeedToHighCommand = setFanSpeedToHighCommand
+        self.turnFanOffCommand = turnFanOffCommand
+        self.vacuumHomeCommand = vacuumHomeCommand
+        self.mopHomeCommand = mopHomeCommand
+        self.turnCleanerOffCommand = turnCleanerOffCommand
+        self.openBlindCommand = openBlindCommand
+        self.closeBlindCommand = closeBlindCommand
+        self.turnLampOnCommand = turnLampOnCommand
+        self.turnLampOffCommand = turnLampOffCommand
     }
     
     // Fan
     func setFanSpeedToLow() {
-        fan.set(speed: .low)
+        setFanSpeedToLowCommand.execute()
     }
     
     func setFanSpeedToMedium() {
-        fan.set(speed: .medium)
+        setFanSpeedToMediumCommand.execute()
     }
     
     func setFanSpeedToHigh() {
-        fan.set(speed: .high)
+        setFanSpeedToHighCommand.execute()
     }
     
     func turnFanOff() {
-        fan.turnOff()
+        turnFanOffCommand.execute()
     }
     
     // Cleaner
     func vacuumHome() {
-        cleaner.set(mode: .vacuum)
-        cleaner.set(state: .cleaning)
+        vacuumHomeCommand.execute()
     }
     
     func mopHome() {
-        cleaner.set(mode: .mop)
-        cleaner.set(state: .cleaning)
+        mopHomeCommand.execute()
     }
     
     func turnCleanerOff() {
-        cleaner.set(state: .off)
+        turnCleanerOffCommand.execute()
     }
     
     // Blind
     func openBlind() {
-        blind.set(height: 100)
+        openBlindCommand.execute()
     }
     
     func closeBlind() {
-        blind.set(height: 0)
+        closeBlindCommand.execute()
     }
     
     // Lamp
     func turnLampOn() {
-        lamp.turnOn()
+        turnLampOnCommand.execute()
     }
     
     func turnLampOff() {
-        lamp.turnOff()
+        turnLampOffCommand.execute()
     }
 }
