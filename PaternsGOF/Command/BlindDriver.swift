@@ -1,7 +1,7 @@
 final class BlindDriver {
     private var heightLevel: Int
     
-    init(heightLevel: Int) {
+    init(heightLevel: Int = 0) {
         self.heightLevel = heightLevel
     }
     
