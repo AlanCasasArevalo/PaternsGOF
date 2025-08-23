@@ -1,8 +1,10 @@
 class RemoteController {
     private var commands: [Command]
+    private var lastCommand: Command
     
     init(numberOfSlots: Int) {
         self.commands = Array(repeating: NullCommand(), count: numberOfSlots)
+        self.lastCommand = NullCommand()
     }
     
     func pressButton(at index: Int) {
@@ -22,5 +24,10 @@ class RemoteController {
     
     func validate(slot index: Int) {
         precondition(index >= 0 && index < commands.count, "Invalid slot index")
+    }
+    
+    func undo() {
+        lastCommand.undo()
+        lastCommand = NullCommand()
     }
 }
