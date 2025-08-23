@@ -1,11 +1,6 @@
-class SetFanSpeedToHighCommand: Command {
-    private let fan: FanDriver
-    
-    init(fan: FanDriver) {
-        self.fan = fan
-    }
-    
-    func execute() {
+class SetFanSpeedToHighCommand: SetFanSpeedCommand {
+    override func execute() {
+        super.execute()
         fan.turnOn()
         fan.set(speed: .high)
     }
