@@ -1,6 +1,6 @@
 class RemoteControllerFactory {
     func create() -> RemoteController {
-        let result: RemoteController = RemoteController(numberOfSlots: 11)
+        let result: RemoteController = RemoteController(numberOfSlots: 12)
 
         // Fan
         let fan = FanDriver()
@@ -24,6 +24,16 @@ class RemoteControllerFactory {
         let lamp = LampDriver()
         result.setCommand(TurnLampOnCommand(lamp: lamp), at: 9)
         result.setCommand(TurnLampOffCommand(lamp: lamp), at: 10)
+        
+        // Macro command
+        let wakeUpMacroCommand = MacroCommand(
+            commands: [
+                VacuumHomeCommand(cleaner: cleaner),
+                OpenBlindCommand(blind: blind),
+                SetFanSpeedToHighCommand(fan: fan)
+            ]
+        )
+        result.setCommand(wakeUpMacroCommand, at: 11)
         
         return result
     }
